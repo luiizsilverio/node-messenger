@@ -1,14 +1,6 @@
-import express from 'express';
-import './database';
-import { routes } from './routes'
+import { http } from './http'
+import "./websocket/client"
 
-const app = express()
-
-// Permite trabalhar com JSON
-app.use(express.json())
-
-app.use(routes)
-
-app.listen(3333, () => (
+http.listen(3333, () => (
     console.log('Servidor rodando na porta 3333')
 ))

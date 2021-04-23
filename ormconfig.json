@@ -2,13 +2,9 @@
    "type": "sqlite",
    "database": "./src/database/database.sqlite",
    "migrations": ["./src/database/migrations/*.ts"],
-   "entities": ["./src/entities/*.ts"],
+   "entities": ["./src/entities/**.ts"],
    "cli": {
      "migrationsDir": "./src/database/migrations"
-   },
-   "host_": "localhost",
-   "port_": 5432,
-   "username_": "postgres",
-   "password_": "masterkey"
+   }
  }
  
