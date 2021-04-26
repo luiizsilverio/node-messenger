@@ -18,3 +18,4 @@ routes.post("/messages", messagesController.create)
 routes.get("/messages/:id", messagesController.showByUser)
 
 export { routes }
+
