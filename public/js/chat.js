@@ -92,4 +92,3 @@ document
 
     document.getElementById("messages").innerHTML += rendered;
   });
-

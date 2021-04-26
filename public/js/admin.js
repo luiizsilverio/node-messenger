@@ -111,4 +111,3 @@ socket.on("admin_receive_message", (data) => {
 
   divMessages.appendChild(createDiv);
 });
-

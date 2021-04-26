@@ -43,4 +43,3 @@ io.on('connect', async (socket) => {
       io.emit('admin_list_all_users', allConnectionsNoAdmin)
    })
 })
-
