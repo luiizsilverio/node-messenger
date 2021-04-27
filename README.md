@@ -1,5 +1,8 @@
 # node-messenger
-Projeto desenvolvido em Node, durante a NLW5 da Rocketseat, utilizando TypeORM, SQLite e Web Sockets.
+Projeto desenvolvido em __Node__, durante a __NLW5__ da Rocketseat, utilizando:
+* Banco de dados <ins>SQLite</ins>
+* <ins>TypeORM</ins>, para acessar os dados do banco
+* Web Sockets
 
 Chat entre clientes e atendente.
 
