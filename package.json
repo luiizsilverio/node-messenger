@@ -2,6 +2,8 @@
   "name": "node_messenger",
   "version": "1.0.0",
   "main": "index.js",
+  "author": "Luiz Oliveira <luiiz.silverio@gmail.com>",
+  "repository": "https://github.com/luiizsilverio/node_messenger",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
