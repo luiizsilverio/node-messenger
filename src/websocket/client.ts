@@ -1,8 +1,7 @@
-import { UsersController } from '../controllers/UsersController'
 import { io } from '../http'
-import { ConnectionsService } from '../services/ConnectionsService'
-import { UsersService } from '../services/UsersService'
-import { MessagesService } from '../services/MessagesService'
+import { ConnectionsServices } from '../services/ConnectionsService'
+import { UsersServices } from '../services/UsersServices'
+import { MessagesServices } from '../services/MessagesServices'
 
 interface IParams {
    text: string;
@@ -10,14 +9,14 @@ interface IParams {
 }
 
 io.on('connect', (socket) => {
-   const connectionsService = new ConnectionsService()
-   const usersService = new UsersService()
-   const messagesService = new MessagesService()
+   const connectionsService = new ConnectionsServices()
+   const usersService = new UsersServices()
+   const messagesService = new MessagesServices()
    
-   // Cria o evento client_first_access (poderia ser qualquer nome)
+   // "Ouve" evento 'client_first_access' (poderia ser qualquer nome)
    socket.on('client_first_access', async (params) => {
       const socket_id = socket.id
-      const { text, email } = params //as IParams
+      const { text, email } = params as IParams
       let user_id = null
       
       const userExists = await usersService.findByEmail(email)
@@ -51,6 +50,31 @@ io.on('connect', (socket) => {
          text,
          user_id
       })
-      // Salvar a conexão com o socket_id, user_id
+
+      const allMessages = await messagesService.listByUser(user_id)
+
+      // Cria o evento 'client_list_all_messages'
+      socket.emit("client_list_all_messages", allMessages)
+
+      const allUsers = await connectionsService.findAllNoAdmin()
+
+      io.emit('admin_list_all_users', allUsers)
+   })
+
+   socket.on('client_send_to_admin', async (params) => {
+      const { text, socket_admin_id } = params
+      const socket_id = socket.id
+
+      const { user_id } = await connectionsService.findBySocketID(socket_id)
+      
+      const message = await messagesService.create({
+         text,
+         user_id
+      })
+
+      io.to(socket_admin_id).emit('admin_receive_message', {
+         message,
+         socket_id: socket_id
+      })
    })
 })
